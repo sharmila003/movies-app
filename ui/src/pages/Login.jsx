@@ -2,10 +2,8 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BookmarkContext } from "../App";
-import  Topicon   from  "../icons/topicon.jpeg";
 
-
-export default function Login() {
+ function Login() {
   
   const { loggedIn, setLoggedIn, setToken, setBookmarkedResult } = useContext(BookmarkContext);
   const navigate = useNavigate();
@@ -77,11 +75,10 @@ export default function Login() {
 
   }
   
-  
-  
+
   return (
     <main data-testid="main" className="main">
-    <img className="img" src={Topicon} alt="Movie" />
+    <img className="img" src="assets/logo.svg" alt="Movie" />
     {loggedIn === false ?
         <form className="form">
             <h2 className="h2">Login</h2>
@@ -109,3 +106,5 @@ export default function Login() {
 
   )
 }
+
+export default Login;

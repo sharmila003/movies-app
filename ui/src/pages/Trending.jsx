@@ -42,7 +42,7 @@ function Trending() {
       axios.get('/bookmarked')
           .then(response => {
               setBookmarkedResult(response.data);
-          })
+      })
           .catch(err => console.log(err))
   }, [bookmarkedResult, setBookmarkedResult]);
 
@@ -104,7 +104,7 @@ function Trending() {
               <div style={{ backgroundImage: `url(${isTablet && t.thumbnail.regular && t.thumbnail.regular.medium})`, }} className="recom-container">
                   <div style={{ backgroundImage: `url(${isMobile && t.thumbnail.regular && t.thumbnail.regular.small})`, }} className="recom-container" >
                       <div onClick={() => toggleBookmark(t.title)} className="bookmark-container-2">
-                          <img className="bookmark" alt="Bookmark" src={bookmarkedResult && bookmarkedResult.includes(t.title) ? "../icons/bookmark full icon.png" : "../icons/bookmark icon empty.png"} />
+                          <img className="bookmark" alt="Bookmark" src={bookmarkedResult && bookmarkedResult.includes(t.title) ?  "assets/icon-bookmark-full.svg" : "assets/icon-bookmark-empty.svg"} />
                       </div>
                       <div className="play-container play-reduced">
                           <img className="play" alt="Bookmark" src="assets/icon-play.svg" /><b>Play</b>
@@ -118,7 +118,7 @@ function Trending() {
               <p className="text-wrapper">{t && t.year}</p>
               <span>
                   <div className="oval-copy" />
-                  <img className="movie-type" src={t.category === "Movie" ? "../icons/moviesicon.png" : "../icons/tvicon.png"} alt="img" />
+                  <img className="movie-type" src={t.category === "Movie" ? "assets/icon-category-movie.svg" : "assets/icon-category-tv.svg"} alt="img" />
                   <p className="text-wrapper">{t && t.category}</p>
               </span>
               <span className="div-2">

@@ -4,7 +4,7 @@ import  Searchbar from "../components/Searchbar";
 import { BookmarkContext } from "../App";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Link} from "react-router-dom";
 
 function Tvseries() {
   const results = data.filter(trend => trend.category === "TV Series");
@@ -72,12 +72,11 @@ function Tvseries() {
                 <div style={{ backgroundImage: `url(${isTablet && t.thumbnail.regular && t.thumbnail.regular.large})`, }} className="recom-container">
                     <div style={{ backgroundImage: `url(${isMobile && t.thumbnail.regular && t.thumbnail.regular.small})`, }} className="recom-container" >
                         <div onClick={() => toggleBookmark(t.title)} className="bookmark-container-2">
-                            <img className="bookmark" alt="Bookmark" src={bookmarkedResult && bookmarkedResult.includes(t.title) ? "../icons/bookmark full icon.png" : "../icons/bookmark icon empty.png"} />
+                            <img className="bookmark" alt="Bookmark" src={bookmarkedResult && bookmarkedResult.includes(t.title) ? "assets/icon-bookmark-full.svg":"assets/icon-bookmark-empty.svg"} />
                         </div>
-                        <div className="play-container play-reduced">
-                            <img className="play" alt="Bookmark" src="assets/icon-play.svg" /><b>Play</b>
+                        <div className="play-container play-reduced"> 
+                          <img className="play" alt="Bookmark" src="../icons/bookmark full icon.png"/><b>Play</b>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -85,7 +84,7 @@ function Tvseries() {
                 <p className="text-wrapper">{t && t.year}</p>
                 <span>
                     <div className="oval-copy" />
-                    <img className="movie-type" src={t.category === "Movie" ? "../icons/moviesicon.png" : "../icons/tvicon.png"} alt="img" />
+                    <img className="movie-type" src={t.category === "Movie" ?"assets/icon-category-movie.svg" : "assets/icon-category-tv.svg"} alt="img" />
                     <p className="text-wrapper">{t && t.category}</p>
                 </span>
                 <span className="div-2">
@@ -93,7 +92,9 @@ function Tvseries() {
                     <p className="text-wrapper">{t && t.rating}</p>
                 </span>
             </div>
-            <h4 className="text">{t && t.title}</h4>
+            <Link to={`/series/${t.title}`} className="text"> 
+          <h4>{t && t.title}</h4>
+      </Link>
         </div>
     ));
   return (
@@ -103,12 +104,13 @@ function Tvseries() {
     />
     {searchWord ?
         <h3 data-testid="search">Found {searchLength} {searchLength > 1 ? 'Results' : 'Result'} For '{searchWord}'</h3> :
-        <h3 data-testid="custom-element">Tv Series </h3>
+        <h3>Tv Series </h3>
     }
-    <div data-testid="series-element" className="div-3">
+    <div className="div-3">
         {seriesElements}
     </div>
-</section>
+ </section>
   )
 }
- export  default  Tvseries;
+
+export  default  Tvseries;

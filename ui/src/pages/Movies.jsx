@@ -6,7 +6,8 @@ import axios from "axios";
 import { BookmarkContext } from "../App";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate,Link } from "react-router-dom";
- 
+
+
 
 function Movies() {
   const results = data.filter(trend => trend.category === "Movie");
@@ -41,9 +42,9 @@ function Movies() {
       axios.get('/bookmarked')
           .then(response => {
               setBookmarkedResult(response.data);
-          })
+   })
           .catch(err => console.log(err))
-  }, [bookmarkedResult, setBookmarkedResult]);
+   }, [bookmarkedResult, setBookmarkedResult]);
 
 
   function handleSearch(e) {
@@ -64,7 +65,7 @@ function Movies() {
           setSearchWord(e.target.value)
 
       }
-    }
+     };
 
      const movieElements = searchResult.map(t => (
       <div key={t.title}>
@@ -72,10 +73,10 @@ function Movies() {
               <div style={{ backgroundImage: `url(${isTablet && t.thumbnail.regular && t.thumbnail.regular.large})`, }} className="recom-container" >
                   <div style={{ backgroundImage: `url(${isMobile && t.thumbnail.regular && t.thumbnail.regular.small})`, }} className="recom-container" >
                       <div onClick={() => toggleBookmark(t.title)} className="bookmark-container-2">
-                          <img className="bookmark" alt="Bookmark" src={bookmarkedResult && bookmarkedResult.includes(t.title) ? "assets/icon-bookmark-full.svg" : "assets/icon-bookmark-empty.svg"} />
+                          <img className="bookmark" alt="Bookmark" src={bookmarkedResult && bookmarkedResult.includes(t.title) ? "assets/icon-bookmark-full.svg":"assets/icon-bookmark-empty.svg"} />
                       </div>
                       <div className="play-container play-reduced">
-                          <img className="play" alt="Bookmark" src="../icons/bookmark full icon.png" /><b>Play</b>
+                          <img className="play" alt="Bookmark" src="../icons/bookmark full icon.png"/><b>Play</b>
                       </div>
                   </div>
               </div>
@@ -85,33 +86,21 @@ function Movies() {
               <p className="text-wrapper">{t && t.year}</p>
               <span>
                   <div className="oval-copy" />
-                  <img className="movie-type" src={t.category === "Movie" ? "../icons/moviesicon.png" : "../icons/tvicon.png"} alt="img" />
+                  <img className="movie-type" src={t.category === "Movie" ?  "assets/icon-category-movie.svg" : "assets/icon-category-tv.svg"} alt="img" />
                   <p className="text-wrapper">{t && t.category}</p>
               </span>
               <span className="div-2">
-                  <div className="oval-copy" />
+                  <div className="oval-copy"/>
                   <p className="text-wrapper">{t && t.rating}</p>
               </span>
           </div>
-          <h4 className="text">{t && t.title}</h4>
-      </div>
-     ));
-      const  viewMovieDetails = (title) => {
-        navigate(`/movies/${title}`);
-     };
-      
-       const MovieElements = searchResult.map((t) => (
-        <div key={t.title}>
-          {/* Use Link to navigate to movie details page */}
-          <Link to={`/movies/${t.title}`} className="movie-link">
-            <h4 className="text" onClick={() => viewMovieDetails(t.title)}>
-              {t && t.title}
-            </h4>
-          </Link>
-        </div>
+          <Link to={`/movies/${t.title}`} className="text"> 
+          <h4>{t && t.title}</h4>
+      </Link>
+     </div>
      
     ));
-
+        
    return (
    <section>
     <Searchbar
@@ -130,3 +119,6 @@ function Movies() {
 }
 
 export  default Movies;
+
+
+  

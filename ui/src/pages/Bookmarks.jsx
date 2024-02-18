@@ -21,7 +21,7 @@ function Bookmarks() {
 
 
   useEffect(() => {
-      axios.get('/bookmarked')
+      axios.get('/bookmarks')
           .then(response => {
               setBookmarkedResult(response.data);
           })
@@ -72,7 +72,6 @@ function Bookmarks() {
                       <div className="play-container play-reduced">
                           <img className="play" alt="Book" src="assets/icon-play.svg" /><b>Play</b>
                       </div>
-
                   </div>
               </div>
           </div>
@@ -190,7 +189,6 @@ function Bookmarks() {
                     </div>
                 </article>
             }
-
         </section>
   )
 }
