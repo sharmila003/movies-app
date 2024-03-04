@@ -6,7 +6,7 @@ import { BookmarkContext } from "../App";
  function Login() {
   
   const { loggedIn, setLoggedIn, setToken, setBookmarkedResult } = useContext(BookmarkContext);
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
   const name = localStorage.getItem('name');
   const [data, setData] = useState({
       email: "",
@@ -32,28 +32,28 @@ import { BookmarkContext } from "../App";
 
       try {
 
-          await axios.post('/login', {
+          await axios.post('http://localhost:3001/login' ,{
               email: data.email,
               password: data.password,
           }, {
-              headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-              }
+             /* headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+              }*/
           }).then(response => {
-              setToken(response.data.ACCESS_TOKEN);
-              response.data.ACCESS_TOKEN && setLoggedIn(true)
+              setToken(response.data.token);
+              response.data.token && setLoggedIn(true)
               localStorage.setItem('name', data.email);
-              !response.data.ACCESS_TOKEN && setError("Invalid Email/Password");
+              !response.data.token && setError("Invalid Email/Password");
           })
       } catch (err) {
           console.error(err);
       }
 
-      setLoading(true);
+     /* setLoading(true);
 
       setTimeout(() => {
           setLoading(false);
-      }, 4000);
+      }, 4000);*/
 
   }
 
@@ -62,7 +62,7 @@ import { BookmarkContext } from "../App";
       setToken("");
       setBookmarkedResult("");
 
-      setLoading(true);
+      /*setLoading(true);
 
       setTimeout(() => {
 
@@ -71,7 +71,7 @@ import { BookmarkContext } from "../App";
 
           navigate('/movies')
 
-      }, 3000)
+      }, 3000)*/
 
   }
   
@@ -100,6 +100,7 @@ import { BookmarkContext } from "../App";
                 <p className="h2 ">Logged In as</p>
                 <p className="name">{name}</p>
                 <button data-testid="logout-button" onClick={handleLogout} className="submit" type="botton">Logout</button>
+                <a href="/"class="centered-link">Home Page</a>
             </article>
     }
 </main>

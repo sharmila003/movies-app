@@ -1105,6 +1105,11 @@ p {
   color: var(--pure-white);
 }
  
+.centered-link {
+  display: block; 
+  text-align: center; 
+  width: 100%; 
+}
 
 
 

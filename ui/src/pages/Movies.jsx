@@ -8,7 +8,6 @@ import { useMediaQuery } from "react-responsive";
 import { useNavigate,Link } from "react-router-dom";
 
 
-
 function Movies() {
   const results = data.filter(trend => trend.category === "Movie");
   const [searchResult, setSearchResult] = useState(results)
@@ -30,9 +29,9 @@ function Movies() {
               await axios.patch('/bookmarks', {
                   bookmarked: movie,
               }, {
-                  headers: {
+                 /* headers: {
                       'Content-Type': 'application/x-www-form-urlencoded',
-                  }
+                  }*/
               })
 
       }

@@ -32,23 +32,25 @@ function Signup() {
           return
       }
       else {
-             await axios.post('https://localhost:3001/register', {
+             await axios.post('http://localhost:3001/register', {
                  email: data.email,
                  password: data.password,
            }, {
-              headers: {
+             /* headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
-              }
+              }*/
           });
-        
+          navigate('/login');
         }
-      setLoading(true);
+      /*setLoading(true);
 
       setTimeout(() => {
           setLoading(false);
           navigate('/login');
 
-      }, 3000);
+      }, 3000);*/
+    
+      
     }
        
     return (

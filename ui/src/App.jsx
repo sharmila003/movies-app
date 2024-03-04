@@ -12,7 +12,7 @@ import  MovieDetails  from "./pages/Moviedetails";
 import  SeriesDetails from "./pages/Tvseriesdetails";
 
 export const BookmarkContext = createContext()
-axios.defaults.baseURL = ' https://127.0.0.1:3001/ ';
+axios.defaults.baseURL = 'http://127.0.0.1:3001/';
 
 
 function App() {
@@ -21,8 +21,6 @@ function App() {
   const [token, setToken] = useState("")
   const [bookmarkedResult, setBookmarkedResult] = useState("")
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-  
- 
   
   return (
    <BookmarkContext.Provider value={{ loggedIn, setLoggedIn, token, setToken, bookmarkedResult, setBookmarkedResult }} >  

@@ -32,9 +32,9 @@ function Bookmarks() {
       await axios.patch('/bookmarks', {
           bookmarked: movie,
       }, {
-          headers: {
+         /* headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
-          }
+          }*/
       })
 
   };
