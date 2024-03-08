@@ -36,9 +36,9 @@ function Signup() {
                  email: data.email,
                  password: data.password,
            }, {
-             /* headers: {
+              headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
-              }*/
+              }
           });
           navigate('/login');
         }

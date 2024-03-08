@@ -7,7 +7,8 @@ import { useMediaQuery } from "react-responsive";
 
 function Bookmarks() {
   const { loggedIn, bookmarkedResult, setBookmarkedResult } = useContext(BookmarkContext);
-
+ 
+  const [authToken, setAuthToken] = useState("");
   var bookmarkedMovies = data.filter(movie => {
       return bookmarkedResult && bookmarkedResult.some(bookmark => movie.title.includes(bookmark))
   });
@@ -17,8 +18,29 @@ function Bookmarks() {
   const [searchResult, setSearchResult] = useState("")
   const [searchLength, setSearchLength] = useState("")
   const [searchWord, setSearchWord] = useState("")
+  
+  useEffect(() => {
+    // Check if token exists in local storage on component mount
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      setAuthToken(token);
+    }
+  }, []);
 
+  // Function to handle token retrieval (e.g., after login)
+  const handleAuthToken = (token) => {
+    setAuthToken(token);
+    localStorage.setItem("authToken", token); // Store token in local storage
+  };
+  
+  
+  
+  handleAuthToken("exampleToken");
 
+  useEffect(() => {
+    // Update axios defaults with authorization header
+    axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+  }, [authToken]);
 
   useEffect(() => {
       axios.get('/bookmarks')
@@ -32,9 +54,9 @@ function Bookmarks() {
       await axios.patch('/bookmarks', {
           bookmarked: movie,
       }, {
-         /* headers: {
+          headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
-          }*/
+          }
       })
 
   };

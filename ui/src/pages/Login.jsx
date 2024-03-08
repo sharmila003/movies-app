@@ -6,7 +6,7 @@ import { BookmarkContext } from "../App";
  function Login() {
   
   const { loggedIn, setLoggedIn, setToken, setBookmarkedResult } = useContext(BookmarkContext);
- // const navigate = useNavigate();
+  const navigate = useNavigate();
   const name = localStorage.getItem('name');
   const [data, setData] = useState({
       email: "",
@@ -26,43 +26,42 @@ import { BookmarkContext } from "../App";
 
   }
 
-
   async function handleSubmit(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      try {
+    const token = localStorage.getItem('token');
+    console.log("Token:", token);
 
-          await axios.post('http://localhost:3001/login' ,{
-              email: data.email,
-              password: data.password,
-          }, {
-             /* headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-              }*/
-          }).then(response => {
-              setToken(response.data.token);
-              response.data.token && setLoggedIn(true)
-              localStorage.setItem('name', data.email);
-              !response.data.token && setError("Invalid Email/Password");
-          })
-      } catch (err) {
-          console.error(err);
-      }
+    try {
+        const token = localStorage.getItem('token'); 
+        const response = await axios.post('http://localhost:3001/login', {
+            email: data.email,
+            password: data.password,
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}` 
+            }
+        });
 
-     /* setLoading(true);
-
-      setTimeout(() => {
-          setLoading(false);
-      }, 4000);*/
-
-  }
+        if (response.data.token) {
+            setToken(response.data.token);
+            localStorage.setItem('token', response.data.token); 
+            setLoggedIn(true);
+            localStorage.setItem('name', data.email);
+        } else {
+            setError("Invalid Email/Password");
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 
   function handleLogout(e) {
       setToken("");
       setBookmarkedResult("");
 
-      /*setLoading(true);
+      setLoading(true);
 
       setTimeout(() => {
 
@@ -71,7 +70,7 @@ import { BookmarkContext } from "../App";
 
           navigate('/movies')
 
-      }, 3000)*/
+      }, 3000)
 
   }
   
