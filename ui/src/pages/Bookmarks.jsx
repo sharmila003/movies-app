@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import data from "./data.json";
-import  Searchbar from "../components/Searchbar";
+import Searchbar from "../components/Searchbar";
 import axios from "axios";
 import { BookmarkContext } from "../App";
 import { useMediaQuery } from "react-responsive";
@@ -21,45 +21,72 @@ function Bookmarks() {
   
   useEffect(() => {
     // Check if token exists in local storage on component mount
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("token");
     if (token) {
       setAuthToken(token);
     }
   }, []);
 
   // Function to handle token retrieval (e.g., after login)
-  const handleAuthToken = (token) => {
-    setAuthToken(token);
-    localStorage.setItem("authToken", token); // Store token in local storage
-  };
+//   const handleAuthToken = (token) => {
+//     setAuthToken(token);
+//     localStorage.setItem("token", token); // Store token in local storage
+//   };
   
-  
-  
-  handleAuthToken("exampleToken");
+//   handleAuthToken("exampleToken");
 
   useEffect(() => {
     // Update axios defaults with authorization header
-    axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer `+localStorage.getItem("token");
   }, [authToken]);
 
   useEffect(() => {
-      axios.get('/bookmarks')
+      axios.get('http://localhost:3001/bookmarks')
           .then(response => {
               setBookmarkedResult(response.data);
           })
           .catch(err => console.log(err))
   }, [bookmarkedResult, setBookmarkedResult]);
 
-  const toggleBookmark = async (movie) => {
-      await axios.patch('/bookmarks', {
+ /* const toggleBookmark = async (movie) => {
+    console.log('State before updating bookmarkedResult:', bookmarkedResult);
+    await axios.patch('/bookmarks', {
           bookmarked: movie,
       }, {
           headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-          }
+              'Content-Type': 'application/x-www-form-urlencoded',  
+            }
       })
+      const updatedBookmarkedResult = bookmarkedResult.includes(movie)
+      ? bookmarkedResult.filter(item => item !== movie)
+      : [...bookmarkedResult, movie];
+    setBookmarkedResult(updatedBookmarkedResult);
+    localStorage.setItem('bookmarkedResult', JSON.stringify(updatedBookmarkedResult));
+    };*/
 
-  };
+    const toggleBookmark = async (movie) => {
+        const isBookmarked = bookmarkedResult.includes(movie);
+        const updatedBookmarkedResult = isBookmarked
+          ? bookmarkedResult.filter(item => item !== movie)
+          : [...bookmarkedResult, movie];
+      
+        setBookmarkedResult(updatedBookmarkedResult);
+        
+        try {
+          await axios.patch('/bookmarks', {
+            bookmarked: movie,
+          }, {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',  
+            }
+          });
+          localStorage.setItem('bookmarkedResult', JSON.stringify(updatedBookmarkedResult));
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      
+      
 
   function handleSearch(e) {
 
@@ -215,4 +242,8 @@ function Bookmarks() {
   )
 }
 
+
+  
+
 export  default  Bookmarks;
+

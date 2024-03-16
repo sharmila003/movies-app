@@ -23,23 +23,28 @@ function Trending() {
 
   const toggleBookmark = async (movie) => {
       if (loggedIn === false) {
-          navigate('/login')
+          navigate('login')
 
       } else {
           token &&
-              await axios.patch('/bookmarks', {
+              await axios.patch('http://localhost:3001/bookmarks', {
                   bookmarked: movie,
               }, {
                   headers: {
                       'Content-Type': 'application/x-www-form-urlencoded',
-                  }
+                       
+                    }
               })
-
+              const updatedBookmarkedResult = bookmarkedResult.includes(movie)
+              ? bookmarkedResult.filter(item => item !== movie)
+              : [...bookmarkedResult, movie];
+          setBookmarkedResult(updatedBookmarkedResult);
+          localStorage.setItem('bookmarkedResult', JSON.stringify(updatedBookmarkedResult));
       }
   };
   useEffect(() => {
 
-      axios.get('/bookmarked')
+      axios.get('http://localhost:3001/bookmarked')
           .then(response => {
               setBookmarkedResult(response.data);
       })

@@ -37,7 +37,7 @@ function Signup() {
                  password: data.password,
            }, {
               headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
+                  'Content-Type': 'application/json'
               }
           });
           navigate('/login');

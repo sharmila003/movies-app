@@ -20,7 +20,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [token, setToken] = useState("")
   const [bookmarkedResult, setBookmarkedResult] = useState("")
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("token");
   
   return (
    <BookmarkContext.Provider value={{ loggedIn, setLoggedIn, token, setToken, bookmarkedResult, setBookmarkedResult }} >  

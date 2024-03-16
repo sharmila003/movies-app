@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const  jwt=  require("jsonwebtoken");
 const express = require("express");
 const mongoose = require('mongoose');
@@ -10,7 +10,8 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/movies", { useNewUrlParser: true, useUnifiedTopology: true });
-
+mongoose.set('useCreateIndex', true);
+//mongoose.connect("mongodb+srv://sharmila077:<Sharmi077>@cluster0.dhhq1ln.mongodb.net/movies", { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -22,11 +23,11 @@ db.once('open', function() {
 const authenticate = (req, res, next) => {
     // Extract the token from the Authorization header
     const authHeader = req.headers.authorization;
-  
+    console.log(authHeader);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ message: "Unauthorized" });
     }
-    
+    console.log("test");
     // Extract token from header
     const token = authHeader.split(' ')[1];
     

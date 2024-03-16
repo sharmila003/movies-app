@@ -25,19 +25,24 @@ function Tvseries() {
 
         } else {
             token &&
-                await axios.patch('/bookmarks', {
+                await axios.patch('http://localhost:3001/bookmarks', {
                     bookmarked: movie,
                 }, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+                       
                     }
                 })
-
+                const updatedBookmarkedResult = bookmarkedResult.includes(movie)
+                ? bookmarkedResult.filter(item => item !== movie)
+                : [...bookmarkedResult, movie];
+            setBookmarkedResult(updatedBookmarkedResult);
+            localStorage.setItem('bookmarkedResult', JSON.stringify(updatedBookmarkedResult));
         }
     };
 
     useEffect(() => {
-        axios.get('/bookmarked')
+        axios.get('http://localhost:3001/bookmarked')
             .then(response => {
                 setBookmarkedResult(response.data);
             })
@@ -75,7 +80,7 @@ function Tvseries() {
                             <img className="bookmark" alt="Bookmark" src={bookmarkedResult && bookmarkedResult.includes(t.title) ? "assets/icon-bookmark-full.svg":"assets/icon-bookmark-empty.svg"} />
                         </div>
                         <div className="play-container play-reduced"> 
-                          <img className="play" alt="Bookmark" src="../icons/bookmark full icon.png"/><b>Play</b>
+                          <img className="play" alt="Bookmark" src="assets/icon-play.svg"/><b>Play</b>
                         </div>
                     </div>
                 </div>
