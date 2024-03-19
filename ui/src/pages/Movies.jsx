@@ -45,7 +45,7 @@ function Movies() {
   
 
   useEffect(() => {
-      axios.get('/bookmarked')
+      axios.get('/bookmarks')
           .then(response => {
               setBookmarkedResult(response.data);
    })

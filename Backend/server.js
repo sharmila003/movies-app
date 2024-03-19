@@ -78,7 +78,7 @@ app.patch('/bookmarks', authenticate, (req, res) => {
 });
 
 // Endpoint to get bookmarks
-app.get('/bookmarks', authenticate, (req, res) => {
+app.get('/bookmarked', authenticate, (req, res) => {
     UserModel.findById(req.userId)
         .populate('bookmarks') 
         .then((foundUser) => {

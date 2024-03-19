@@ -62,7 +62,7 @@ function Bookmarks() {
             bookmarked: movie,
           }, {
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',  
+              'Content-Type': 'application/json',  
             }
           });
           localStorage.setItem('bookmarkedResult', JSON.stringify(updatedBookmarkedResult));
