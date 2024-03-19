@@ -20,7 +20,7 @@ function Movies() {
   const navigate = useNavigate();
 
   // Function to toggle the bookmark status of a movie
-  const toggleBookmark = async (movie) => {
+ const toggleBookmark = async (movie) => {
       if (loggedIn === false) {
           navigate('/login')
 
@@ -30,8 +30,9 @@ function Movies() {
                   bookmarked: movie,
               }, {
                   headers: {
-                   
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                 
                   }
               })
               const updatedBookmarkedResult = bookmarkedResult.includes(movie)
@@ -51,6 +52,19 @@ function Movies() {
           .catch(err => console.log(err))
    }, [bookmarkedResult, setBookmarkedResult]);
 
+   /*useEffect(() => {
+    axios.get('http://localhost:3001/bookmarks', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+      .then(response => {
+        setBookmarkedResult(response.data);
+        setSearchResult(response.data); // Update search results with bookmarked data
+        setSearchLength(response.data.length);
+      })
+      .catch(err => console.log(err));
+    }, [token, setBookmarkedResult]);*/
 
   function handleSearch(e) {
 

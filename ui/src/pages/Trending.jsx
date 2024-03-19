@@ -31,8 +31,8 @@ function Trending() {
                   bookmarked: movie,
               }, {
                   headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                       
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${token}`,
                     }
               })
               const updatedBookmarkedResult = bookmarkedResult.includes(movie)
@@ -44,7 +44,7 @@ function Trending() {
   };
   useEffect(() => {
 
-      axios.get('http://localhost:3001/bookmarked')
+      axios.get('/bookmarked')
           .then(response => {
               setBookmarkedResult(response.data);
       })

@@ -1,9 +1,10 @@
-require('dotenv').config();
+
 const  jwt=  require("jsonwebtoken");
 const express = require("express");
 const mongoose = require('mongoose');
 const cors = require("cors");
 const UserModel = require('./models/user.js');
+const {bookmarkedSchema} = require('./models/bookmarked.js');
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/movies", { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true);
+mongoose.model('Bookmarked', bookmarkedSchema);
 //mongoose.connect("mongodb+srv://sharmila077:<Sharmi077>@cluster0.dhhq1ln.mongodb.net/movies", { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -59,7 +61,7 @@ app.patch('/bookmarks', authenticate, (req, res) => {
             if (!foundUser.bookmarked) {
                 foundUser.bookmarked = []; 
             }
-            if (foundUser.bookmarked.includes(req.body.bookmarked)) {
+            if (foundUser.bookmarked.includes(req.body.bookmarks)) {
                 foundUser.bookmarked.remove(req.body.bookmarked);
             } else {
                 foundUser.bookmarked.push(req.body.bookmarked);
@@ -76,8 +78,9 @@ app.patch('/bookmarks', authenticate, (req, res) => {
 });
 
 // Endpoint to get bookmarks
-app.get('/bookmarked', authenticate, (req, res) => {
+app.get('/bookmarks', authenticate, (req, res) => {
     UserModel.findById(req.userId)
+        .populate('bookmarks') 
         .then((foundUser) => {
             res.json(foundUser.bookmarked);
         })

@@ -10,10 +10,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  bookmark: {
+  bookmarks: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Bookmark' 
-  }
+    ref: 'Bookmarked' 
+  }]
 });
 
 const UserModel = mongoose.model('User', userSchema);

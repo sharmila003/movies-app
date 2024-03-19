@@ -48,22 +48,7 @@ function Bookmarks() {
           .catch(err => console.log(err))
   }, [bookmarkedResult, setBookmarkedResult]);
 
- /* const toggleBookmark = async (movie) => {
-    console.log('State before updating bookmarkedResult:', bookmarkedResult);
-    await axios.patch('/bookmarks', {
-          bookmarked: movie,
-      }, {
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',  
-            }
-      })
-      const updatedBookmarkedResult = bookmarkedResult.includes(movie)
-      ? bookmarkedResult.filter(item => item !== movie)
-      : [...bookmarkedResult, movie];
-    setBookmarkedResult(updatedBookmarkedResult);
-    localStorage.setItem('bookmarkedResult', JSON.stringify(updatedBookmarkedResult));
-    };*/
-
+ 
     const toggleBookmark = async (movie) => {
         const isBookmarked = bookmarkedResult.includes(movie);
         const updatedBookmarkedResult = isBookmarked
