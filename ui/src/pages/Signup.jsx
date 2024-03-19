@@ -42,13 +42,13 @@ function Signup() {
           });
           navigate('/login');
         }
-      /*setLoading(true);
+      setLoading(true);
 
       setTimeout(() => {
           setLoading(false);
           navigate('/login');
 
-      }, 3000);*/
+      }, 3000);
     
       
     }
@@ -68,12 +68,11 @@ function Signup() {
             <button className="submit" type="submit">Create an Account</button>
             <p className="small">Already have an account? <a href="/login">Login</a> </p>
         </form> :
-
-        <div className="loading-spinner">
-            <div className="spinner"></div>
-            <p>Loading...</p>
-        </div>
-
+        
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+              <p>Loading...</p>
+            </div>
     }
  </main>
 

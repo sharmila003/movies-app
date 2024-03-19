@@ -10,10 +10,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb://127.0.0.1:27017/movies", { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect("mongodb://127.0.0.1:27017/movies", { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true);
 mongoose.model('Bookmarked', bookmarkedSchema);
-//mongoose.connect("mongodb+srv://sharmila077:<Sharmi077>@cluster0.dhhq1ln.mongodb.net/movies", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://sharmila077:<Sharmi077>@cluster0.dhhq1ln.mongodb.net/movies", { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
