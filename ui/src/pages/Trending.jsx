@@ -44,7 +44,7 @@ function Trending() {
   };
   useEffect(() => {
 
-      axios.get('/bookmarked')
+      axios.get('http://localhost:3001/bookmarks')
           .then(response => {
               setBookmarkedResult(response.data);
       })
