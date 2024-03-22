@@ -16,7 +16,7 @@ app.use(cors());
 //mongoose.connect("mongodb://127.0.0.1:27017/movies", { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.model('Bookmarked', bookmarkedSchema);
-const MANGO_URI="mongodb+srv://sharmila077:<Sharmi077>@cluster0.dhhq1ln.mongodb.net/movies";
+const MANGO_URI="mongodb+srv://sharmila077:<Sharmi077>@Cluster0.dhhq1ln.mongodb.net/movies"
 mongoose.connect(MANGO_URI,{ useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
